@@ -1,79 +1,97 @@
-# Okay Express
+# Okay Express International — React + Vite + Supabase + Local API Server
 
-A Node.js Express application for international projects.
+This repo includes:
 
-## Features
+- **Frontend**: React + Vite (runs on `http://localhost:5173`)
+- **Local API**: Express server that serves the handlers in `api/*.js` under `/api/*`.
+  (runs on `http://localhost:3001`)
+- **Auth**: Supabase auth + optional Google OAuth
 
-- ✅ Express.js server
-- ✅ CORS enabled
-- ✅ Environment variables support
-- ✅ Error handling middleware
-- ✅ Health check endpoint
-- ✅ RESTful API structure
+
 
 ## Prerequisites
+- Node.js (LTS) + npm
 
-- Node.js (v14 or higher)
-- npm or yarn
+## Local setup
 
-## Installation
+### 1) Install dependencies
 
-1. Clone the repository:
-```bash
-git clone https://github.com/mademen889/okay-express.git
-cd okay-express
-```
-
-2. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Create `.env` file:
+### 2) Configure environment variables
+
+Create env files from the examples:
+
 ```bash
-cp .env.example .env
+copy .env.example .env
+copy server/.env.example server/.env
 ```
 
-4. Update `.env` with your configuration:
-```
-PORT=3000
-NODE_ENV=development
+Fill in real values:
+
+- **Root `.env`** (Vite)
+
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_ANON_KEY`
+  - `VITE_GOOGLE_CLIENT_ID` (optional)
+  - `VITE_GOOGLE_AUTH_PROXY` (optional; default used by app)
+  - `VITE_API_BASE_URL` (optional; default is `http://localhost:3001`)
+
+
+- **`server/.env`**
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY` (required for server-side analytics queries)
+  - `PORT` (optional; default `3001`)
+
+### 3) Run the API server
+
+Terminal 1:
+
+```bash
+npm run dev:api
 ```
 
-## Running the Application
+Health check:
 
-### Development mode (with auto-reload):
+- `http://localhost:3001/health`
+
+### 4) Run the frontend
+
+Terminal 2:
+
 ```bash
 npm run dev
 ```
 
-### Production mode:
+Open:
+
+- `http://localhost:5173`
+
+
+## Verify dashboard analytics
+
+After Supabase credentials are set:
+
+- `http://localhost:3001/api/analytics` should return **200** JSON.
+
+
+## Lint / build
+
 ```bash
-npm start
+npm run lint
+npm run build
 ```
 
-The server will run on `http://localhost:3000`
+## Release/Packaging notes
 
-## API Endpoints
+When creating a release zip, exclude:
 
-- `GET /` - Welcome message
-- `GET /api/health` - Health check
-- `GET /api/info` - Application information
+- `node_modules/`
+- real `.env` files (`.env`, `server/.env`)
+- `dist/` and `build/`
+- `.git/`
+- `check-env.mjs`
 
-## Project Structure
 
-```
-okay-express/
-├── app.js              # Main application file
-├── package.json        # Dependencies and scripts
-├── .env.example        # Environment variables template
-└── README.md           # This file
-```
-
-## License
-
-MIT
-
-## Author
-
-mademen889
