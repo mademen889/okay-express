@@ -1,0 +1,21 @@
+{
+  "name": "okay-express",
+  "version": "1.0.0",
+  "description": "Express.js International Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": ["express", "nodejs", "api"],
+  "author": "mademen889",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
